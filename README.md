@@ -14,7 +14,7 @@
 ## 📋 Table of Contents
 
 - [🎯 Project Overview](#-project-overview)
-- [🛠️ Technical Skills Demonstrated](#--technical-skills-demonstrated)
+- [🛠️ Technical Skills Demonstrated](#---technical-skills-demonstrated)
 - [🏗️ OLTP → DWH Tables Mapping](#-oltp--dwh-tables-mapping)
 - [🏗️ System Architecture](#system-architecture)
 - [✨ Key Features](#key-features)
