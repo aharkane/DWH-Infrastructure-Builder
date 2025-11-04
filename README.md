@@ -459,7 +459,7 @@ WHERE CustomerID = 1
    - SCD type specifications
    - Data types and business rules
 
-2. **[OLTP-Tables-Diagram-and-listing.md](Documentation/OLTP-Tables-Diagram-and-listing.md)** (8.6 KB)
+2. **[OLTP-Tables-Diagram-Listing.md](Documentation/OLTP-Tables-Diagram-Listing.md)** (8.6 KB)
    - Visual table relationships
    - Entity relationship diagrams
    - Data lineage documentation
