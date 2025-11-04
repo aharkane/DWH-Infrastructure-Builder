@@ -6,6 +6,9 @@ Based on your current organization at:
 ```
 1. DWH Infrastructure Builder/
 │
+├── 📂 Source DB/
+│   ├── AdvWrks2022_OLTP_Backup.bak
+│
 ├── 📂 Documentation/
 │   ├── Data-Dictionnary.xlsx                    # Complete data dictionary (44 KB)
 │   ├── OLTP-Tables-Diagram-and-listing.md       # Visual table relationships (8.6 KB)
