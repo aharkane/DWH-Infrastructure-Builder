@@ -1,0 +1,2637 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/8/2025 2:39:07 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="AH-PC"
+  DTS:CreatorName="AH-PC\harka"
+  DTS:DTSID="{9874354B-864C-4AD0-A31B-4D29F572E5F7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5467.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="150"
+  DTS:VersionGUID="{C1897F9E-FE29-451C-9E22-C1BE38947A05}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Data Connection]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+      DTS:ObjectName="Data Connection">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Initial Catalog=AdvWrks2022_DWH;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package-{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}Data Connection;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D2DD3169-EE10-4264-BFD7-57AEAAD1A84A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ETL_CutoffDate">
+      <DTS:VariableValue
+        DTS:DataType="7">12:00:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1F5B9FF8-778C-404C-A67D-4CCB00F90E80}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ETL_CutoffDate_prev">
+      <DTS:VariableValue
+        DTS:DataType="7">12:00:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A63D1BB7-0032-4439-8D60-23DD9CF3C8D5}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ETL_LineageKey">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F4BDE173-0945-4226-8647-A96C8BDEB1DD}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="TableName">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="2" />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DimAddress Table Data Flow"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{B360E7CC-21FA-4072-AA8A-11E047036584}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DimAddress Table Data Flow">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\DimAddress Table Data Flow\Extract and Load to Staging Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{77226F22-6E06-4EA4-B7C9-99A1F794A723}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Extract and Load to Staging Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Updates_Address ?,?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate_prev"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimAddress Table Data Flow\Get Latest Lineage Key"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{C3364EFC-316C-439E-903D-B6F531B218AE}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Latest Lineage Key"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Last_ETL_LineageKey ?,?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ETL_LineageKey" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimAddress Table Data Flow\Get Previous DataExtract Date"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{ebb6676e-9647-42ba-8e59-1afb6ab24c10}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Previous DataExtract Date"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Last_ETL_CutoffDate ?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate_prev" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimAddress Table Data Flow\Load to Dimension Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{063393bb-c64e-4737-8533-da1d4a72c0fd}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load to Dimension Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Load_Updates_Address" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimAddress Table Data Flow\Set TableName_param"
+          DTS:CreationName="Microsoft.ExpressionTask"
+          DTS:Description="Expression Task"
+          DTS:DTSID="{44EAD2E3-5558-40D8-8F07-DE515D35BA01}"
+          DTS:ExecutableType="Microsoft.ExpressionTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Set TableName_param"
+          DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <ExpressionTask
+              Expression="@[User::TableName] = &quot;Address&quot;" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimAddress Table Data Flow\Truncate Staging Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{87a79add-db25-4db8-bd3e-aa97cec85c36}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="truncate table stg.Address_staging" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimAddress Table Data Flow\Update Lineage and Cutooff Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{56FAA178-2673-499C-A53A-C868192608A7}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update Lineage and Cutooff Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Update_Control_Tables ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_LineageKey"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{319E503E-440A-481A-A74F-DA66BCEEBE7A}"
+          DTS:From="Package\DimAddress Table Data Flow\Set TableName_param"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\DimAddress Table Data Flow\Get Latest Lineage Key" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{F2C52488-D998-4B96-842C-3BF0E19D7556}"
+          DTS:From="Package\DimAddress Table Data Flow\Extract and Load to Staging Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\DimAddress Table Data Flow\Load to Dimension Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{41987AED-2D2C-46A5-B57F-703016BBAF55}"
+          DTS:From="Package\DimAddress Table Data Flow\Get Latest Lineage Key"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\DimAddress Table Data Flow\Truncate Staging Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{15DBAB7E-8F60-4111-9AD8-C559FA77D3EF}"
+          DTS:From="Package\DimAddress Table Data Flow\Truncate Staging Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\DimAddress Table Data Flow\Get Previous DataExtract Date" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{75D088FA-442B-44F1-95B4-44DDAA33CC37}"
+          DTS:From="Package\DimAddress Table Data Flow\Get Previous DataExtract Date"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\DimAddress Table Data Flow\Extract and Load to Staging Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{37764CDE-A448-4B69-AC13-BA6C4BA2FD20}"
+          DTS:From="Package\DimAddress Table Data Flow\Load to Dimension Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\DimAddress Table Data Flow\Update Lineage and Cutooff Tables" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DimCustomer Table Data Flow"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{14bada0f-02ad-4ede-86df-49a7cfb502ba}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DimCustomer Table Data Flow">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\DimCustomer Table Data Flow\Extract and Load to Staging Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{83d355de-d10e-46f8-a746-96765634bc30}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Extract and Load to Staging Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Updates_Customer ?,?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate_prev"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimCustomer Table Data Flow\Get Latest Lineage Key"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{e05572a6-6fee-4c10-a4c2-d345a6db7f09}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Latest Lineage Key"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Last_ETL_LineageKey ?,?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ETL_LineageKey" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimCustomer Table Data Flow\Get Previous DataExtract Date"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{b22a5459-a7f8-47fb-8e1e-5b59dad30951}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Previous DataExtract Date"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Last_ETL_CutoffDate ?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate_prev" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimCustomer Table Data Flow\Load to Dimension Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{06e27532-b7ed-4098-a9ac-6c8f9293279b}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load to Dimension Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Load_Updates_Customer" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimCustomer Table Data Flow\Set TableName_param"
+          DTS:CreationName="Microsoft.ExpressionTask"
+          DTS:Description="Expression Task"
+          DTS:DTSID="{752250c3-3768-4b91-b8ed-a89b53fc1904}"
+          DTS:ExecutableType="Microsoft.ExpressionTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Set TableName_param"
+          DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <ExpressionTask
+              Expression="@[User::TableName] = &quot;Customer&quot;" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimCustomer Table Data Flow\Truncate Staging Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{76a67c63-831c-4387-ab98-785311ecdc0d}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="truncate table stg.Customer_staging" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimCustomer Table Data Flow\Update Lineage and Cutooff Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{2f10c68d-02e1-46ee-bc3c-5ab44cc9113a}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update Lineage and Cutooff Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Update_Control_Tables ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_LineageKey"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{16c4c0e3-3db7-446a-98dc-27b4a55e088e}"
+          DTS:From="Package\DimCustomer Table Data Flow\Set TableName_param"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\DimCustomer Table Data Flow\Get Latest Lineage Key" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{cb09c167-5540-4398-827a-898c6208a206}"
+          DTS:From="Package\DimCustomer Table Data Flow\Extract and Load to Staging Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\DimCustomer Table Data Flow\Load to Dimension Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{9eb60dd3-5731-4dd8-b53c-19e035b6b31c}"
+          DTS:From="Package\DimCustomer Table Data Flow\Get Latest Lineage Key"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\DimCustomer Table Data Flow\Truncate Staging Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{e12b3291-bb3a-4511-8ed1-48ae368c7bb0}"
+          DTS:From="Package\DimCustomer Table Data Flow\Truncate Staging Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\DimCustomer Table Data Flow\Get Previous DataExtract Date" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{5be897fc-5241-4f7e-a430-99407ed20d20}"
+          DTS:From="Package\DimCustomer Table Data Flow\Get Previous DataExtract Date"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\DimCustomer Table Data Flow\Extract and Load to Staging Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{B1F6F75F-05C2-4484-B2BD-3C26DEA323CC}"
+          DTS:From="Package\DimCustomer Table Data Flow\Load to Dimension Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\DimCustomer Table Data Flow\Update Lineage and Cutooff Tables" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DimProduct Table Data Flow"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{d05d65ac-20fd-4c98-94fd-8fc48d85bae3}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DimProduct Table Data Flow">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\DimProduct Table Data Flow\Extract and Load to Staging Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{0c225572-c181-414f-83c5-29f1f2638cdd}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Extract and Load to Staging Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Updates_Product ?,?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate_prev"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimProduct Table Data Flow\Get Latest Lineage Key"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{5382033f-7b26-47f9-8b78-306925a3bf58}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Latest Lineage Key"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Last_ETL_LineageKey ?,?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ETL_LineageKey" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimProduct Table Data Flow\Get Previous DataExtract Date"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{3518ec95-856f-4be2-aa0d-bd2e50f69d28}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Previous DataExtract Date"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Last_ETL_CutoffDate ?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate_prev" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimProduct Table Data Flow\Load to Dimension Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1d3d6ec4-0177-4d06-8746-e7b752542044}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load to Dimension Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Load_Updates_Product" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimProduct Table Data Flow\Set TableName_param"
+          DTS:CreationName="Microsoft.ExpressionTask"
+          DTS:Description="Expression Task"
+          DTS:DTSID="{11ef1cc1-7ef8-4f49-8a78-08acccb5d5d5}"
+          DTS:ExecutableType="Microsoft.ExpressionTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Set TableName_param"
+          DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <ExpressionTask
+              Expression="@[User::TableName] = &quot;Product&quot;" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimProduct Table Data Flow\Truncate Staging Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{83b730f2-f2c3-43a9-a492-d76bd5192247}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="truncate table stg.Product_staging" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimProduct Table Data Flow\Update Lineage and Cutooff Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{a43e0ac5-ac0b-41c2-9aef-54d090a3557b}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update Lineage and Cutooff Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Update_Control_Tables ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_LineageKey"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{e725b3dd-5aa2-44d3-8b22-ad69ff3c0a92}"
+          DTS:From="Package\DimProduct Table Data Flow\Set TableName_param"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\DimProduct Table Data Flow\Get Latest Lineage Key" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{8f1e8c68-074c-4336-9715-3fc24fb97ceb}"
+          DTS:From="Package\DimProduct Table Data Flow\Extract and Load to Staging Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\DimProduct Table Data Flow\Load to Dimension Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{0fa9a8cc-cdfc-4f14-aea4-45bf9c452f04}"
+          DTS:From="Package\DimProduct Table Data Flow\Get Latest Lineage Key"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\DimProduct Table Data Flow\Truncate Staging Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{77db44ee-4200-430a-868e-34c1f37465ea}"
+          DTS:From="Package\DimProduct Table Data Flow\Truncate Staging Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\DimProduct Table Data Flow\Get Previous DataExtract Date" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{d7a53849-dadc-43d9-b83a-1a3410344b31}"
+          DTS:From="Package\DimProduct Table Data Flow\Get Previous DataExtract Date"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\DimProduct Table Data Flow\Extract and Load to Staging Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{D2B12FAE-787D-4803-818B-77C5C3D23C12}"
+          DTS:From="Package\DimProduct Table Data Flow\Load to Dimension Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\DimProduct Table Data Flow\Update Lineage and Cutooff Tables" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DimSalesPerson Table Data Flow"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{fd23fb51-56a8-4ed8-87f7-e4fec037b3f0}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DimSalesPerson Table Data Flow">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\DimSalesPerson Table Data Flow\Extract and Load to Staging Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{f32889cc-092c-47ee-bfef-3dbf0b7e072f}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Extract and Load to Staging Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Updates_SalesPerson ?,?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate_prev"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimSalesPerson Table Data Flow\Get Latest Lineage Key"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{d2ca0698-f288-49ef-9e6c-d9a4f95ae4db}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Latest Lineage Key"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Last_ETL_LineageKey ?,?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ETL_LineageKey" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimSalesPerson Table Data Flow\Get Previous DataExtract Date"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{dd13d98e-d57c-4919-b5d0-0fad7e0a72be}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Previous DataExtract Date"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Last_ETL_CutoffDate ?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate_prev" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimSalesPerson Table Data Flow\Load to Dimension Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{d4d823e3-c53e-40c1-af39-065a76aea81a}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load to Dimension Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Load_Updates_SalesPerson" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimSalesPerson Table Data Flow\Set TableName_param"
+          DTS:CreationName="Microsoft.ExpressionTask"
+          DTS:Description="Expression Task"
+          DTS:DTSID="{044733fc-e48f-480c-ab47-8ef4dbc0e074}"
+          DTS:ExecutableType="Microsoft.ExpressionTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Set TableName_param"
+          DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <ExpressionTask
+              Expression="@[User::TableName] = &quot;SalesPerson&quot;" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimSalesPerson Table Data Flow\Truncate Staging Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{160cc0bc-4e16-4677-b930-15831a1b499a}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="truncate table stg.SalesPerson_staging" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\DimSalesPerson Table Data Flow\Update Lineage and Cutooff Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{4090ae30-6396-4f35-a243-b1393c9de709}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update Lineage and Cutooff Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Update_Control_Tables ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_LineageKey"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{dcaab73c-315b-4e17-80c8-bc1a8bbb2ec4}"
+          DTS:From="Package\DimSalesPerson Table Data Flow\Set TableName_param"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\DimSalesPerson Table Data Flow\Get Latest Lineage Key" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{47fa7796-e5cf-4470-97d8-2e3568cb6b59}"
+          DTS:From="Package\DimSalesPerson Table Data Flow\Extract and Load to Staging Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\DimSalesPerson Table Data Flow\Load to Dimension Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{82d552b3-04e1-43b9-9210-c0784c7f646c}"
+          DTS:From="Package\DimSalesPerson Table Data Flow\Get Latest Lineage Key"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\DimSalesPerson Table Data Flow\Truncate Staging Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{0b470079-d8df-4187-b6e2-a298879a6474}"
+          DTS:From="Package\DimSalesPerson Table Data Flow\Truncate Staging Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\DimSalesPerson Table Data Flow\Get Previous DataExtract Date" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{7d4e86b5-4631-4e12-8cd1-a233e1c3c2fa}"
+          DTS:From="Package\DimSalesPerson Table Data Flow\Get Previous DataExtract Date"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\DimSalesPerson Table Data Flow\Extract and Load to Staging Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{d8c2241a-d93d-4487-a876-b359e14e85b2}"
+          DTS:From="Package\DimSalesPerson Table Data Flow\Load to Dimension Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\DimSalesPerson Table Data Flow\Update Lineage and Cutooff Tables" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\FactSales Table Data Flow"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{db5fd9b4-7364-4093-ba52-90c34d41f74a}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="FactSales Table Data Flow">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\FactSales Table Data Flow\Extract and Load to Staging Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{a85e4a00-bcd4-4933-95bb-b3e39517a52c}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Extract and Load to Staging Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Updates_Sales ?,?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate_prev"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FactSales Table Data Flow\Get Latest Lineage Key"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{f541cc91-a71c-4f97-8127-b549abaf1efd}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Latest Lineage Key"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Last_ETL_LineageKey ?,?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ETL_LineageKey" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FactSales Table Data Flow\Get Previous DataExtract Date"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{8604397d-0e09-48cd-8089-b15b99c4303e}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Previous DataExtract Date"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Get_Last_ETL_CutoffDate ?"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate_prev" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FactSales Table Data Flow\Load to Dimension Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{83896389-2dd3-44dc-b530-f53ba1d56a2d}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load to Dimension Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Load_Updates_Sales" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FactSales Table Data Flow\Set TableName_param"
+          DTS:CreationName="Microsoft.ExpressionTask"
+          DTS:Description="Expression Task"
+          DTS:DTSID="{62ec4fff-ab0e-4b96-8846-c345129ba853}"
+          DTS:ExecutableType="Microsoft.ExpressionTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Set TableName_param"
+          DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <ExpressionTask
+              Expression="@[User::TableName] = &quot;Sales&quot;" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FactSales Table Data Flow\Truncate Staging Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1b8519f9-a92a-47d7-a4af-c34d5fafe4d0}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="truncate table stg.Sales_staging" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FactSales Table Data Flow\Update Lineage and Cutooff Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{f26fe903-2315-4a91-b82d-944275616d7f}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update Lineage and Cutooff Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BAD157BB-B565-4ECA-BC26-7E7DC173A45F}"
+              SQLTask:SqlStatementSource="exec integration.Update_Control_Tables ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::TableName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::ETL_LineageKey"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::ETL_CutoffDate"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{470ca5e2-18f3-4eb1-b368-9c4d9d907b4b}"
+          DTS:From="Package\FactSales Table Data Flow\Set TableName_param"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\FactSales Table Data Flow\Get Latest Lineage Key" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{d7926dbf-9554-4475-8cf9-4cc49134bcea}"
+          DTS:From="Package\FactSales Table Data Flow\Extract and Load to Staging Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\FactSales Table Data Flow\Load to Dimension Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{c1b9566d-6817-4771-b665-e78bd3af5a28}"
+          DTS:From="Package\FactSales Table Data Flow\Get Latest Lineage Key"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\FactSales Table Data Flow\Truncate Staging Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{376a5b22-208c-4f33-98c2-87184f5ab5c5}"
+          DTS:From="Package\FactSales Table Data Flow\Truncate Staging Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\FactSales Table Data Flow\Get Previous DataExtract Date" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{2b9143fa-034a-4bca-b6bc-26892d647883}"
+          DTS:From="Package\FactSales Table Data Flow\Get Previous DataExtract Date"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\FactSales Table Data Flow\Extract and Load to Staging Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{dc56ba70-9c7c-4ee3-9dec-a51c3b64012d}"
+          DTS:From="Package\FactSales Table Data Flow\Load to Dimension Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\FactSales Table Data Flow\Update Lineage and Cutooff Tables" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get DataExtract_Date_CurrentETL_param"
+      DTS:CreationName="Microsoft.ExpressionTask"
+      DTS:Description="Expression Task"
+      DTS:DTSID="{A69FAF37-281F-4F70-9DF5-D0FF581978E3}"
+      DTS:ExecutableType="Microsoft.ExpressionTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get DataExtract_Date_CurrentETL_param"
+      DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <ExpressionTask
+          Expression="@[User::ETL_CutoffDate]  =    DATEADD(&quot;Year&quot;, -4, GETDATE())" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{81A6894F-B2E6-4937-A961-F05C9552EE7B}"
+      DTS:From="Package\Get DataExtract_Date_CurrentETL_param"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DimAddress Table Data Flow" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{4C93CA97-A8DC-456C-93B4-C1D6EC44A8E4}"
+      DTS:From="Package\DimAddress Table Data Flow"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\DimCustomer Table Data Flow" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{6B069591-F00A-4D1A-841F-B3596A78613C}"
+      DTS:From="Package\DimCustomer Table Data Flow"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\DimProduct Table Data Flow" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{EFE3E8E3-84D8-4510-8029-9CBAC39A6019}"
+      DTS:From="Package\DimProduct Table Data Flow"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\DimSalesPerson Table Data Flow" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{44F3E47B-59A3-4E63-B3E3-20C707DB5829}"
+      DTS:From="Package\DimSalesPerson Table Data Flow"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\FactSales Table Data Flow" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="128" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="235.2,41.6"
+          Id="Package\DimAddress Table Data Flow\Extract and Load to Staging Table"
+          TopLeft="68.5428443420509,384.669635095055" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\DimAddress Table Data Flow\Get Latest Lineage Key"
+          TopLeft="73.8169194463286,123.574817667373" />
+        <NodeLayout
+          Size="220,41.6"
+          Id="Package\DimAddress Table Data Flow\Get Previous DataExtract Date"
+          TopLeft="47.094697809115,299.917041649618" />
+        <NodeLayout
+          Size="193.6,41.6"
+          Id="Package\DimAddress Table Data Flow\Load to Dimension Table"
+          TopLeft="95.3002517034671,476.716673042907" />
+        <NodeLayout
+          Size="185.6,41.6"
+          Id="Package\DimAddress Table Data Flow\Set TableName_param"
+          TopLeft="47.4169194463287,37.185187171889" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\DimAddress Table Data Flow\Truncate Staging Table"
+          TopLeft="74.4502521505019,205.631114795084" />
+        <EdgeLayout
+          Id="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint]"
+          TopLeft="140.216919446329,78.785187171889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26.7999999999999,44.789630495484"
+              Start="0,0"
+              End="26.7999999999999,37.289630495484">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.394815247742" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.394815247742"
+                    Point2="0,22.394815247742"
+                    Point3="4,22.394815247742" />
+                  <mssgle:LineSegment
+                    End="22.7999999999999,22.394815247742" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.7999999999999,22.394815247742"
+                    Point2="26.7999999999999,22.394815247742"
+                    Point3="26.7999999999999,26.394815247742" />
+                  <mssgle:LineSegment
+                    End="26.7999999999999,37.289630495484" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint 1]"
+          TopLeft="189.121548022759,426.269635095055">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.447037947852"
+              Start="0,0"
+              End="0,42.947037947852">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.947037947852" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint 2]"
+          TopLeft="167.333585798415,165.174817667373">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.456297127711"
+              Start="0,0"
+              End="0,32.956297127711">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.956297127711" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint 3]"
+          TopLeft="167.650252150502,247.231114795084">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10.5555543413869,52.685926854534"
+              Start="0,0"
+              End="-10.5555543413869,45.185926854534">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.342963427267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.342963427267"
+                    Point2="0,26.342963427267"
+                    Point3="-4,26.342963427267" />
+                  <mssgle:LineSegment
+                    End="-6.55555434138691,26.342963427267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.55555434138691,26.342963427267"
+                    Point2="-10.5555543413869,26.342963427267"
+                    Point3="-10.5555543413869,30.342963427267" />
+                  <mssgle:LineSegment
+                    End="-10.5555543413869,45.185926854534" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint 4]"
+          TopLeft="157.094697809115,341.517041649618">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="29.0481465329359,43.152593445437"
+              Start="0,0"
+              End="29.0481465329359,35.652593445437">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5762967227185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5762967227185"
+                    Point2="0,21.5762967227185"
+                    Point3="4,21.5762967227185" />
+                  <mssgle:LineSegment
+                    End="25.0481465329359,21.5762967227185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="25.0481465329359,21.5762967227185"
+                    Point2="29.0481465329359,21.5762967227185"
+                    Point3="29.0481465329359,25.5762967227185" />
+                  <mssgle:LineSegment
+                    End="29.0481465329359,35.652593445437" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="242.4,41.6"
+          Id="Package\DimAddress Table Data Flow\Update Lineage and Cutooff Tables"
+          TopLeft="67.408322198855,573.316669964128" />
+        <EdgeLayout
+          Id="Package\DimAddress Table Data Flow.PrecedenceConstraints[Constraint 5]"
+          TopLeft="190.354286951161,518.316673042907">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54.9999969212212"
+              Start="0,0"
+              End="0,47.4999969212212">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.4999969212212" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43.2"
+          IsExpanded="False"
+          PanelSize="383.2,679.2"
+          Size="383.2,43.2"
+          Id="Package\DimAddress Table Data Flow"
+          TopLeft="99.4303137227276,210.428044000375" />
+        <NodeLayout
+          Size="274.4,41.6"
+          Id="Package\Get DataExtract_Date_CurrentETL_param"
+          TopLeft="219.526849518257,89.0132280934845" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="356.726849518257,130.613228093485">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-65.6965357955298,79.8148159068908"
+              Start="0,0"
+              End="-65.6965357955298,72.3148159068908">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.9074079534454" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.9074079534454"
+                    Point2="0,39.9074079534454"
+                    Point3="-4,39.9074079534454" />
+                  <mssgle:LineSegment
+                    End="-61.6965357955298,39.9074079534454" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-61.6965357955298,39.9074079534454"
+                    Point2="-65.6965357955298,39.9074079534454"
+                    Point3="-65.6965357955298,43.9074079534454" />
+                  <mssgle:LineSegment
+                    End="-65.6965357955298,72.3148159068908" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="235.2,41.6"
+          Id="Package\DimCustomer Table Data Flow\Extract and Load to Staging Table"
+          TopLeft="68.5428443420509,384.669635095055" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\DimCustomer Table Data Flow\Get Latest Lineage Key"
+          TopLeft="73.8169194463286,123.574817667373" />
+        <NodeLayout
+          Size="220,41.6"
+          Id="Package\DimCustomer Table Data Flow\Get Previous DataExtract Date"
+          TopLeft="47.094697809115,299.917041649618" />
+        <NodeLayout
+          Size="193.6,41.6"
+          Id="Package\DimCustomer Table Data Flow\Load to Dimension Table"
+          TopLeft="95.3002517034671,476.716673042907" />
+        <NodeLayout
+          Size="185.6,41.6"
+          Id="Package\DimCustomer Table Data Flow\Set TableName_param"
+          TopLeft="47.4169194463287,37.185187171889" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\DimCustomer Table Data Flow\Truncate Staging Table"
+          TopLeft="74.4502521505019,205.631114795084" />
+        <EdgeLayout
+          Id="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint]"
+          TopLeft="140.216919446329,78.785187171889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26.7999999999999,44.789630495484"
+              Start="0,0"
+              End="26.7999999999999,37.289630495484">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.394815247742" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.394815247742"
+                    Point2="0,22.394815247742"
+                    Point3="4,22.394815247742" />
+                  <mssgle:LineSegment
+                    End="22.7999999999999,22.394815247742" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.7999999999999,22.394815247742"
+                    Point2="26.7999999999999,22.394815247742"
+                    Point3="26.7999999999999,26.394815247742" />
+                  <mssgle:LineSegment
+                    End="26.7999999999999,37.289630495484" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint 1]"
+          TopLeft="189.121548022759,426.269635095055">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.447037947852"
+              Start="0,0"
+              End="0,42.947037947852">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.947037947852" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint 2]"
+          TopLeft="167.333585798415,165.174817667373">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.456297127711"
+              Start="0,0"
+              End="0,32.956297127711">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.956297127711" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint 3]"
+          TopLeft="167.650252150502,247.231114795084">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10.5555543413869,52.685926854534"
+              Start="0,0"
+              End="-10.5555543413869,45.185926854534">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.342963427267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.342963427267"
+                    Point2="0,26.342963427267"
+                    Point3="-4,26.342963427267" />
+                  <mssgle:LineSegment
+                    End="-6.55555434138691,26.342963427267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.55555434138691,26.342963427267"
+                    Point2="-10.5555543413869,26.342963427267"
+                    Point3="-10.5555543413869,30.342963427267" />
+                  <mssgle:LineSegment
+                    End="-10.5555543413869,45.185926854534" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint 4]"
+          TopLeft="157.094697809115,341.517041649618">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="29.0481465329359,43.152593445437"
+              Start="0,0"
+              End="29.0481465329359,35.652593445437">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5762967227185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5762967227185"
+                    Point2="0,21.5762967227185"
+                    Point3="4,21.5762967227185" />
+                  <mssgle:LineSegment
+                    End="25.0481465329359,21.5762967227185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="25.0481465329359,21.5762967227185"
+                    Point2="29.0481465329359,21.5762967227185"
+                    Point3="29.0481465329359,25.5762967227185" />
+                  <mssgle:LineSegment
+                    End="29.0481465329359,35.652593445437" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="242.4,41.6"
+          Id="Package\DimCustomer Table Data Flow\Update Lineage and Cutooff Tables"
+          TopLeft="35.1712723284243,547.766667717034" />
+        <EdgeLayout
+          Id="Package\DimCustomer Table Data Flow.PrecedenceConstraints[Constraint 5]"
+          TopLeft="192.100251703467,518.316673042907">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-35.7289793750428,29.4499946741266"
+              Start="0,0"
+              End="-35.7289793750428,21.9499946741266">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.7249973370633" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.7249973370633"
+                    Point2="0,14.7249973370633"
+                    Point3="-4,14.7249973370633" />
+                  <mssgle:LineSegment
+                    End="-31.7289793750428,14.7249973370633" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-31.7289793750428,14.7249973370633"
+                    Point2="-35.7289793750428,14.7249973370633"
+                    Point3="-35.7289793750428,18.7249973370633" />
+                  <mssgle:LineSegment
+                    End="-35.7289793750428,21.9499946741266" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="49.6"
+          IsExpanded="False"
+          PanelSize="344.8,644"
+          Size="344.8,49.6"
+          Id="Package\DimCustomer Table Data Flow"
+          TopLeft="137.499994536242,287.642858522847" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="291.030313722728,253.628044000375">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="18.869680813514,34.0148145224717"
+              Start="0,0"
+              End="18.869680813514,26.5148145224717">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.0074072612358" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.0074072612358"
+                    Point2="0,17.0074072612358"
+                    Point3="4,17.0074072612358" />
+                  <mssgle:LineSegment
+                    End="14.869680813514,17.0074072612358" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14.869680813514,17.0074072612358"
+                    Point2="18.869680813514,17.0074072612358"
+                    Point3="18.869680813514,21.0074072612358" />
+                  <mssgle:LineSegment
+                    End="18.869680813514,26.5148145224717" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="235.2,41.6"
+          Id="Package\DimProduct Table Data Flow\Extract and Load to Staging Table"
+          TopLeft="68.5428443420509,384.669635095055" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\DimProduct Table Data Flow\Get Latest Lineage Key"
+          TopLeft="73.8169194463286,123.574817667373" />
+        <NodeLayout
+          Size="220,41.6"
+          Id="Package\DimProduct Table Data Flow\Get Previous DataExtract Date"
+          TopLeft="47.094697809115,299.917041649618" />
+        <NodeLayout
+          Size="193.6,41.6"
+          Id="Package\DimProduct Table Data Flow\Load to Dimension Table"
+          TopLeft="95.3002517034671,476.716673042907" />
+        <NodeLayout
+          Size="185.6,41.6"
+          Id="Package\DimProduct Table Data Flow\Set TableName_param"
+          TopLeft="47.4169194463287,37.185187171889" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\DimProduct Table Data Flow\Truncate Staging Table"
+          TopLeft="74.4502521505019,205.631114795084" />
+        <EdgeLayout
+          Id="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint]"
+          TopLeft="140.216919446329,78.785187171889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26.7999999999999,44.789630495484"
+              Start="0,0"
+              End="26.7999999999999,37.289630495484">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.394815247742" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.394815247742"
+                    Point2="0,22.394815247742"
+                    Point3="4,22.394815247742" />
+                  <mssgle:LineSegment
+                    End="22.7999999999999,22.394815247742" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.7999999999999,22.394815247742"
+                    Point2="26.7999999999999,22.394815247742"
+                    Point3="26.7999999999999,26.394815247742" />
+                  <mssgle:LineSegment
+                    End="26.7999999999999,37.289630495484" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint 1]"
+          TopLeft="189.121548022759,426.269635095055">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.447037947852"
+              Start="0,0"
+              End="0,42.947037947852">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.947037947852" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint 2]"
+          TopLeft="167.333585798415,165.174817667373">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.456297127711"
+              Start="0,0"
+              End="0,32.956297127711">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.956297127711" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint 3]"
+          TopLeft="167.650252150502,247.231114795084">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10.5555543413869,52.685926854534"
+              Start="0,0"
+              End="-10.5555543413869,45.185926854534">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.342963427267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.342963427267"
+                    Point2="0,26.342963427267"
+                    Point3="-4,26.342963427267" />
+                  <mssgle:LineSegment
+                    End="-6.55555434138691,26.342963427267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.55555434138691,26.342963427267"
+                    Point2="-10.5555543413869,26.342963427267"
+                    Point3="-10.5555543413869,30.342963427267" />
+                  <mssgle:LineSegment
+                    End="-10.5555543413869,45.185926854534" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint 4]"
+          TopLeft="157.094697809115,341.517041649618">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="29.0481465329359,43.152593445437"
+              Start="0,0"
+              End="29.0481465329359,35.652593445437">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5762967227185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5762967227185"
+                    Point2="0,21.5762967227185"
+                    Point3="4,21.5762967227185" />
+                  <mssgle:LineSegment
+                    End="25.0481465329359,21.5762967227185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="25.0481465329359,21.5762967227185"
+                    Point2="29.0481465329359,21.5762967227185"
+                    Point3="29.0481465329359,25.5762967227185" />
+                  <mssgle:LineSegment
+                    End="29.0481465329359,35.652593445437" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="242.4,41.6"
+          Id="Package\DimProduct Table Data Flow\Update Lineage and Cutooff Tables"
+          TopLeft="31.4082983569981,555.500003047784" />
+        <EdgeLayout
+          Id="Package\DimProduct Table Data Flow.PrecedenceConstraints[Constraint 5]"
+          TopLeft="192.100251703467,518.316673042907">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-39.491953346469,37.1833300048772"
+              Start="0,0"
+              End="-39.491953346469,29.6833300048772">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.5916650024386" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.5916650024386"
+                    Point2="0,18.5916650024386"
+                    Point3="-4,18.5916650024386" />
+                  <mssgle:LineSegment
+                    End="-35.491953346469,18.5916650024386" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-35.491953346469,18.5916650024386"
+                    Point2="-39.491953346469,18.5916650024386"
+                    Point3="-39.491953346469,22.5916650024386" />
+                  <mssgle:LineSegment
+                    End="-39.491953346469,29.6833300048772" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="49.6"
+          IsExpanded="False"
+          PanelSize="344.8,652"
+          Size="344.8,49.6"
+          Id="Package\DimProduct Table Data Flow"
+          TopLeft="157.565232047574,374.088889118478" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="309.899994536242,337.242858522847">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="20.0652375113324,36.8460305956305"
+              Start="0,0"
+              End="20.0652375113324,29.3460305956305">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.4230152978153" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.4230152978153"
+                    Point2="0,18.4230152978153"
+                    Point3="4,18.4230152978153" />
+                  <mssgle:LineSegment
+                    End="16.0652375113324,18.4230152978153" />
+                  <mssgle:CubicBezierSegment
+                    Point1="16.0652375113324,18.4230152978153"
+                    Point2="20.0652375113324,18.4230152978153"
+                    Point3="20.0652375113324,22.4230152978153" />
+                  <mssgle:LineSegment
+                    End="20.0652375113324,29.3460305956305" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="235.2,41.6"
+          Id="Package\DimSalesPerson Table Data Flow\Extract and Load to Staging Table"
+          TopLeft="68.5428443420509,384.669635095055" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\DimSalesPerson Table Data Flow\Get Latest Lineage Key"
+          TopLeft="73.8169194463286,123.574817667373" />
+        <NodeLayout
+          Size="220,41.6"
+          Id="Package\DimSalesPerson Table Data Flow\Get Previous DataExtract Date"
+          TopLeft="47.094697809115,299.917041649618" />
+        <NodeLayout
+          Size="193.6,41.6"
+          Id="Package\DimSalesPerson Table Data Flow\Load to Dimension Table"
+          TopLeft="95.3002517034671,476.716673042907" />
+        <NodeLayout
+          Size="185.6,41.6"
+          Id="Package\DimSalesPerson Table Data Flow\Set TableName_param"
+          TopLeft="47.4169194463287,37.185187171889" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\DimSalesPerson Table Data Flow\Truncate Staging Table"
+          TopLeft="74.4502521505019,205.631114795084" />
+        <NodeLayout
+          Size="242.4,41.6"
+          Id="Package\DimSalesPerson Table Data Flow\Update Lineage and Cutooff Tables"
+          TopLeft="31.4082983569981,555.500003047784" />
+        <EdgeLayout
+          Id="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint]"
+          TopLeft="140.216919446329,78.785187171889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26.7999999999999,44.789630495484"
+              Start="0,0"
+              End="26.7999999999999,37.289630495484">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.394815247742" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.394815247742"
+                    Point2="0,22.394815247742"
+                    Point3="4,22.394815247742" />
+                  <mssgle:LineSegment
+                    End="22.7999999999999,22.394815247742" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.7999999999999,22.394815247742"
+                    Point2="26.7999999999999,22.394815247742"
+                    Point3="26.7999999999999,26.394815247742" />
+                  <mssgle:LineSegment
+                    End="26.7999999999999,37.289630495484" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint 1]"
+          TopLeft="189.121548022759,426.269635095055">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.447037947852"
+              Start="0,0"
+              End="0,42.947037947852">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.947037947852" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint 2]"
+          TopLeft="167.333585798415,165.174817667373">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.456297127711"
+              Start="0,0"
+              End="0,32.956297127711">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.956297127711" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint 3]"
+          TopLeft="167.650252150502,247.231114795084">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10.5555543413869,52.685926854534"
+              Start="0,0"
+              End="-10.5555543413869,45.185926854534">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.342963427267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.342963427267"
+                    Point2="0,26.342963427267"
+                    Point3="-4,26.342963427267" />
+                  <mssgle:LineSegment
+                    End="-6.55555434138691,26.342963427267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.55555434138691,26.342963427267"
+                    Point2="-10.5555543413869,26.342963427267"
+                    Point3="-10.5555543413869,30.342963427267" />
+                  <mssgle:LineSegment
+                    End="-10.5555543413869,45.185926854534" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint 4]"
+          TopLeft="157.094697809115,341.517041649618">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="29.0481465329359,43.152593445437"
+              Start="0,0"
+              End="29.0481465329359,35.652593445437">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5762967227185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5762967227185"
+                    Point2="0,21.5762967227185"
+                    Point3="4,21.5762967227185" />
+                  <mssgle:LineSegment
+                    End="25.0481465329359,21.5762967227185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="25.0481465329359,21.5762967227185"
+                    Point2="29.0481465329359,21.5762967227185"
+                    Point3="29.0481465329359,25.5762967227185" />
+                  <mssgle:LineSegment
+                    End="29.0481465329359,35.652593445437" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimSalesPerson Table Data Flow.PrecedenceConstraints[Constraint 5]"
+          TopLeft="192.100251703467,518.316673042907">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-39.491953346469,37.1833300048772"
+              Start="0,0"
+              End="-39.491953346469,29.6833300048772">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.5916650024386" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.5916650024386"
+                    Point2="0,18.5916650024386"
+                    Point3="-4,18.5916650024386" />
+                  <mssgle:LineSegment
+                    End="-35.491953346469,18.5916650024386" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-35.491953346469,18.5916650024386"
+                    Point2="-39.491953346469,18.5916650024386"
+                    Point3="-39.491953346469,22.5916650024386" />
+                  <mssgle:LineSegment
+                    End="-39.491953346469,29.6833300048772" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="49.6"
+          IsExpanded="False"
+          PanelSize="344.8,652"
+          Size="344.8,49.6"
+          Id="Package\DimSalesPerson Table Data Flow"
+          TopLeft="195.982135069512,474.841273312973" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="329.965232047574,423.688889118478">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="38.4169030219383,51.152384194495"
+              Start="0,0"
+              End="38.4169030219383,43.652384194495">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5761920972475" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.5761920972475"
+                    Point2="0,25.5761920972475"
+                    Point3="4,25.5761920972475" />
+                  <mssgle:LineSegment
+                    End="34.4169030219383,25.5761920972475" />
+                  <mssgle:CubicBezierSegment
+                    Point1="34.4169030219383,25.5761920972475"
+                    Point2="38.4169030219383,25.5761920972475"
+                    Point3="38.4169030219383,29.5761920972475" />
+                  <mssgle:LineSegment
+                    End="38.4169030219383,43.652384194495" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="235.2,41.6"
+          Id="Package\FactSales Table Data Flow\Extract and Load to Staging Table"
+          TopLeft="68.5428443420509,384.669635095055" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\FactSales Table Data Flow\Get Latest Lineage Key"
+          TopLeft="73.8169194463286,123.574817667373" />
+        <NodeLayout
+          Size="220,41.6"
+          Id="Package\FactSales Table Data Flow\Get Previous DataExtract Date"
+          TopLeft="47.094697809115,299.917041649618" />
+        <NodeLayout
+          Size="193.6,41.6"
+          Id="Package\FactSales Table Data Flow\Load to Dimension Table"
+          TopLeft="95.3002517034671,476.716673042907" />
+        <NodeLayout
+          Size="185.6,41.6"
+          Id="Package\FactSales Table Data Flow\Set TableName_param"
+          TopLeft="47.4169194463287,37.185187171889" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\FactSales Table Data Flow\Truncate Staging Table"
+          TopLeft="74.4502521505019,205.631114795084" />
+        <NodeLayout
+          Size="242.4,41.6"
+          Id="Package\FactSales Table Data Flow\Update Lineage and Cutooff Tables"
+          TopLeft="31.4082983569981,555.500003047784" />
+        <EdgeLayout
+          Id="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint]"
+          TopLeft="140.216919446329,78.785187171889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26.7999999999999,44.789630495484"
+              Start="0,0"
+              End="26.7999999999999,37.289630495484">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.394815247742" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.394815247742"
+                    Point2="0,22.394815247742"
+                    Point3="4,22.394815247742" />
+                  <mssgle:LineSegment
+                    End="22.7999999999999,22.394815247742" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.7999999999999,22.394815247742"
+                    Point2="26.7999999999999,22.394815247742"
+                    Point3="26.7999999999999,26.394815247742" />
+                  <mssgle:LineSegment
+                    End="26.7999999999999,37.289630495484" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint 1]"
+          TopLeft="189.121548022759,426.269635095055">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.447037947852"
+              Start="0,0"
+              End="0,42.947037947852">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.947037947852" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint 2]"
+          TopLeft="167.333585798415,165.174817667373">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.456297127711"
+              Start="0,0"
+              End="0,32.956297127711">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.956297127711" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint 3]"
+          TopLeft="167.650252150502,247.231114795084">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10.5555543413869,52.685926854534"
+              Start="0,0"
+              End="-10.5555543413869,45.185926854534">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.342963427267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.342963427267"
+                    Point2="0,26.342963427267"
+                    Point3="-4,26.342963427267" />
+                  <mssgle:LineSegment
+                    End="-6.55555434138691,26.342963427267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.55555434138691,26.342963427267"
+                    Point2="-10.5555543413869,26.342963427267"
+                    Point3="-10.5555543413869,30.342963427267" />
+                  <mssgle:LineSegment
+                    End="-10.5555543413869,45.185926854534" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint 4]"
+          TopLeft="157.094697809115,341.517041649618">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="29.0481465329359,43.152593445437"
+              Start="0,0"
+              End="29.0481465329359,35.652593445437">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5762967227185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5762967227185"
+                    Point2="0,21.5762967227185"
+                    Point3="4,21.5762967227185" />
+                  <mssgle:LineSegment
+                    End="25.0481465329359,21.5762967227185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="25.0481465329359,21.5762967227185"
+                    Point2="29.0481465329359,21.5762967227185"
+                    Point3="29.0481465329359,25.5762967227185" />
+                  <mssgle:LineSegment
+                    End="29.0481465329359,35.652593445437" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FactSales Table Data Flow.PrecedenceConstraints[Constraint 5]"
+          TopLeft="192.100251703467,518.316673042907">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-39.491953346469,37.1833300048772"
+              Start="0,0"
+              End="-39.491953346469,29.6833300048772">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.5916650024386" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.5916650024386"
+                    Point2="0,18.5916650024386"
+                    Point3="-4,18.5916650024386" />
+                  <mssgle:LineSegment
+                    End="-35.491953346469,18.5916650024386" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-35.491953346469,18.5916650024386"
+                    Point2="-39.491953346469,18.5916650024386"
+                    Point3="-39.491953346469,22.5916650024386" />
+                  <mssgle:LineSegment
+                    End="-39.491953346469,29.6833300048772" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="49.6"
+          IsExpanded="False"
+          PanelSize="344.8,652"
+          Size="227.2,49.6"
+          Id="Package\FactSales Table Data Flow"
+          TopLeft="247.843006238036,568.057144628253" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="364.912570653774,524.441273312973">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.6158713152801"
+              Start="0,0"
+              End="0,36.1158713152801">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.1158713152801" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
