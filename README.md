@@ -13,7 +13,7 @@
 ## 📋 Table of Contents
 
 - [Project Overview](#-project-overview)
-- [OLTP DWH Tables Mapping](#OLTP-DWH-Tables-Mapping)
+- [OLTP DWH Tables Mapping](#-OLTP-DWH-Tables-Mapping)
 - [Architecture](#-architecture)
 - [Key Features](#-key-features)
 - [Technical Skills Demonstrated](#-technical-skills-demonstrated)
