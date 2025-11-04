@@ -13,20 +13,21 @@
 
 ## 📋 Table of Contents
 
-- [🎯 Project Overview](#-project-overview)
-- [🛠️ Technical Skills Demonstrated](#---technical-skills-demonstrated)
-- [🏗️ OLTP → DWH Tables Mapping](#-oltp--dwh-tables-mapping)
-- [🏗️ System Architecture](#system-architecture)
-- [✨ Key Features](#key-features)
-- [📁 Project Structure](#project-structure)
-- [🚀 Getting Started](#getting-started)
-- [🔄 ETL Process Flow](#etl-process-flow)
-- [📊 Data Model](#data-model)
-- [📚 Documentation](#documentation)
-- [📈 Performance Metrics](#performance-metrics)
-- [🌟 Why This Project Stands Out](#why-this-project-stands-out)
-- [👨‍💻 Author](#author)
-- [📜 License](#license)
+
+- [Project Overview](#project-overview)
+- [Technical Skills Demonstrated](#technical-skills-demonstrated)
+- [OLTP to DWH Tables Mapping](#oltp-to-dwh-tables-mapping)
+- [System Architecture](#system-architecture)
+- [Key Features](#key-features)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [ETL Process Flow](#etl-process-flow)
+- [Data Model](#data-model)
+- [Documentation](#documentation)
+- [Performance Metrics](#performance-metrics)
+- [Why This Project Stands Out](#why-this-project-stands-out)
+- [Author](#author)
+- [License](#license)
 
 
 ---
