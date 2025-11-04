@@ -13,6 +13,7 @@
 ## 📋 Table of Contents
 
 - [Project Overview](#-project-overview)
+- [OLTP DWH Tables Mapping](#OLTP-DWH-Tables-Mapping)
 - [Architecture](#-architecture)
 - [Key Features](#-key-features)
 - [Technical Skills Demonstrated](#-technical-skills-demonstrated)
@@ -56,6 +57,16 @@ The data warehouse integrates sales data from the AdventureWorks OLTP system, tr
 
 ---
 
+## 🏗️ OLTP DWH Tables Mapping
+| DWH_Table   | Source_OLTP_Tables                                               | Row_Count | SCD_Type      | Natural_Key_From_OLTP                     | Surrogate_Key_DWH                     | Foreign_Keys_to_Dimensions                                   | Key_Attributes                                                                                     |
+|-------------|------------------------------------------------------------------|------------|---------------|-------------------------------------------|---------------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| **DimAddress**   | Person.Address, Person.StateProvince, Sales.SalesTerritory, Person.CountryRegion | 450        | Type 0        | AddressID (from OLTP)                     | AddressDWKey (Identity/Auto-generated) | StateProvinceID, TerritoryID                                | City, PostalCode, StateProvinceName, TerritoryName, CountryRegionName                        |
+| **DimCustomer**  | Sales.Customer, Sales.Store, Person.Person, Sales.SalesTerritory, Person.CountryRegion | 30,119     | Type 1 & 2  | CustomerID (from Sales.Customer)          | CustomerDWKey (Identity/Auto-generated) | CustomerPersonID, StoreID, SalesPersonID, TerritoryID        | FirstName (Type 2), LastName (Type 2), StoreName (Type 1), JobTitle (Type 1), TerritoryName (Type 1), IsCurrent, ValidityDate_Start, ValidityDate_End |
+| **DimProduct**    | Production.Product, Production.ProductCategory, Production.ProductSubcategory, Production.UnitMeasure | 504        | Type 1 & 2  | ProductID (from OLTP)                     | ProductDWKey (Identity/Auto-generated)  | ProductCategoryID, ProductSubcategoryID                     | ProductName, ProductColor, ListPrice (Type 2), StandardCost (Type 1), ProductSize, IsCurrent, ValidityDate_Start, ValidityDate_End |
+| **DimSalesPerson**| Sales.SalesPerson, HumanResources.Employee, Person.Person, Sales.SalesTerritory | 17         | Type 1 & 2  | SalesPersonID (from Sales.SalesPerson)    | SalesPersonDWKey (Identity/Auto-generated) | TerritoryID                                              | FirstName (Type 2), LastName (Type 2), JobTitle (Type 1), SalesQuota (Type 1), Commission (Type 1), IsCurrent, ValidityDate_Start, ValidityDate_End   |
+| **FactSales**     | Sales.SalesOrderHeader, Sales.SalesOrderDetail                | 121,317    | Transactional | SalesOrderID, SalesOrderDetailID (from OLTP) | SalesOrderID, SalesOrderDetailID (Pass-through from OLTP) | CustomerDWKey, ProductDWKey, SalesPersonDWKey, AddressDWKey | OrderDate, OrderQty, UnitPrice, LineTotal, OrderSubTotal, OrderFreight, OrderTotalDue               |
+
+---
 ## 🏗️ Architecture
 
 ### 4-Layer Architecture
