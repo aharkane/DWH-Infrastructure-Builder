@@ -9,6 +9,61 @@
 > **A production-ready, metadata-driven data warehouse implementation featuring incremental loading, slowly changing dimensions, and automated ETL orchestration.**
 
 ---
+
+
+## 📋 Table of Contents
+
+- [🎯 Project Overview](#project-overview)
+- [🛠️ Technical Skills Demonstrated](#technical-skills-demonstrated)
+- [🏗️ OLTP → DWH Tables Mapping](#oltp--dwh-tables-mapping)
+- [🏗️ System Architecture](#system-architecture)
+- [✨ Key Features](#key-features)
+- [📁 Project Structure](#project-structure)
+- [🚀 Getting Started](#getting-started)
+- [🔄 ETL Process Flow](#etl-process-flow)
+- [📊 Data Model](#data-model)
+- [📚 Documentation](#documentation)
+- [📈 Performance Metrics](#performance-metrics)
+- [🌟 Why This Project Stands Out](#why-this-project-stands-out)
+- [👨‍💻 Author](#author)
+- [📜 License](#license)
+
+
+---
+
+
+
+## 🎯 Project Overview
+
+This project showcases a **comprehensive enterprise data warehouse solution** built from scratch, demonstrating advanced data engineering concepts including:
+
+- ✅ **Metadata-Driven Architecture** - Dynamic table generation and ETL process automation
+- ✅ **Slowly Changing Dimensions (SCD)** - Type 0, Type 1, and Type 2 implementations with validity tracking
+- ✅ **Incremental Data Loading** - Change Data Capture (CDC) with cutoff date tracking
+- ✅ **SSIS ETL Orchestration** - Parallel execution with error handling and logging
+- ✅ **ETL Control Framework** - Lineage tracking and audit trail for data governance
+- ✅ **Star Schema Design** - Optimized dimensional modeling for analytical queries
+
+### Business Context
+
+The data warehouse integrates sales data from the AdventureWorks OLTP system, transforming it into an analytical star schema that supports:
+- 📊 Customer behavior analysis
+- 📈 Product performance tracking  
+- 💰 Sales trend analysis
+- 🎯 Territory and salesperson performance metrics
+
+### Project Statistics
+
+- **43 SQL Files** organized in logical folders
+- **19 Stored Procedures** for ETL operations
+- **~312 KB** of production-quality T-SQL code
+- **1 SSIS Package** with complete orchestration
+- **5 Dimensions + 1 Fact Table** (star schema)
+- **120,000+ Sales Records** processed
+- **<5 Second** incremental load times
+
+---
+
 ## 🛠️ Technical Skills Demonstrated
 
 <table>
@@ -53,44 +108,6 @@
 </td>
 </tr>
 </table>
-
----
-
-## 📋 Table of Contents
-
-
----
-
-
-
-## 🎯 Project Overview
-
-This project showcases a **comprehensive enterprise data warehouse solution** built from scratch, demonstrating advanced data engineering concepts including:
-
-- ✅ **Metadata-Driven Architecture** - Dynamic table generation and ETL process automation
-- ✅ **Slowly Changing Dimensions (SCD)** - Type 0, Type 1, and Type 2 implementations with validity tracking
-- ✅ **Incremental Data Loading** - Change Data Capture (CDC) with cutoff date tracking
-- ✅ **SSIS ETL Orchestration** - Parallel execution with error handling and logging
-- ✅ **ETL Control Framework** - Lineage tracking and audit trail for data governance
-- ✅ **Star Schema Design** - Optimized dimensional modeling for analytical queries
-
-### Business Context
-
-The data warehouse integrates sales data from the AdventureWorks OLTP system, transforming it into an analytical star schema that supports:
-- 📊 Customer behavior analysis
-- 📈 Product performance tracking  
-- 💰 Sales trend analysis
-- 🎯 Territory and salesperson performance metrics
-
-### Project Statistics
-
-- **43 SQL Files** organized in logical folders
-- **19 Stored Procedures** for ETL operations
-- **~312 KB** of production-quality T-SQL code
-- **1 SSIS Package** with complete orchestration
-- **5 Dimensions + 1 Fact Table** (star schema)
-- **120,000+ Sales Records** processed
-- **<5 Second** incremental load times
 
 ---
 
