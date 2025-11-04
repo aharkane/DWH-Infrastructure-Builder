@@ -15,19 +15,18 @@
 
 
 - [Project Overview](#-project-overview)
-- [Technical Skills Demonstrated](#technical-skills-demonstrated)
-- [OLTP to DWH Tables Mapping](#oltp-to-dwh-tables-mapping)
-- [System Architecture](#system-architecture)
-- [Key Features](#key-features)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [ETL Process Flow](#etl-process-flow)
-- [Data Model](#data-model)
-- [Documentation](#documentation)
-- [Performance Metrics](#performance-metrics)
-- [Why This Project Stands Out](#why-this-project-stands-out)
-- [Author](#author)
-- [License](#license)
+- [Technical Skills Demonstrated](#%EF%B8%8F-technical-skills-demonstrated)
+- [OLTP to DWH Tables Mapping](#%EF%B8%8F-oltp-dwh-tables-mapping)
+- [System Architecture](#%EF%B8%8F-architecture)
+- [Key Features](#-key-features)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [ETL Process Flow](#-etl-process-flow)
+- [Data Model](#-data-model)
+- [Documentation](#-documentation)
+- [Performance Metrics](#-performance-metrics)
+- [Author](#%E2%80%8D-author)
+- [License](#-license)
 
 
 ---
@@ -537,27 +536,6 @@ This project represents **3+ months of development** demonstrating:
 
 ---
 
-## 🌟 Why This Project Stands Out
-
-### 1. **Metadata-Driven = Enterprise-Ready**
-Most portfolios show hard-coded ETL. This project uses metadata to drive everything, showing architectural maturity.
-
-### 2. **SCD Implementation**
-Full implementation of SCD Type 0, 1, and 2 - a critical skill many data engineers lack.
-
-### 3. **Production-Grade Code**
-- Error handling
-- Transaction management
-- Comprehensive logging
-- Performance optimization
-
-### 4. **Complete Documentation**
-From data dictionary to installation guide - shows professional communication skills.
-
-### 5. **Real Complexity**
-43 files, 19 procedures, full SSIS package - this is not a tutorial project.
-
----
 
 ## 📜 License
 
