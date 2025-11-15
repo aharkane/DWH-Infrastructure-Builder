@@ -377,7 +377,7 @@ ETL Orchestration |	1 SSIS master package |	Automated execution|
 
 ---
 
-## 🎯 Project Highlights for Resume/LinkedIn
+### Project Highlights
 
 > **Enterprise Data Warehouse Engineer | Personal Project**  
 > *AdventureWorks Sales Analytics Data Warehouse*
@@ -390,8 +390,4 @@ ETL Orchestration |	1 SSIS master package |	Automated execution|
 >
 > **Technologies**: SQL Server, SSIS, T-SQL, Dimensional Modeling, Star Schema, ETL, Data Integration
 
----
-
-
-| **Fact Records** | 121,317 rows | Real business data |
 
